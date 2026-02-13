@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>valentine yeeppy</title>
+<style>
+html{scroll-behavior:smooth;}
+body{
+margin:0;
+background:#ffb6d9;
+font-family:'Courier New', monospace;
+color:white;
+text-align:center;
+overflow-x:hidden;
+}
+
+/* Sparkle */
+.sparkle{
+position:fixed;
+width:5px;
+height:5px;
+background:white;
+border-radius:50%;
+animation:twinkle 2s infinite alternate;
+}
+@keyframes twinkle{from{opacity:0.2;} to{opacity:1;}}
+
+/* SECTION */
+.section{
+min-height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+padding:20px;
+position:relative;
+}
+
+/* TITLE */
+h1{font-size:42px;text-shadow:3px 3px #ff69b4;animation:wiggle 2s infinite;margin-bottom:10px;}
+.subtitle{font-size:20px;margin-bottom:30px;white-space:pre-line;}
+@keyframes wiggle{0%,100%{transform:rotate(0deg);}50%{transform:rotate(2deg);}}
+
+.pixel-cat{font-size:50px;animation:bounce 1.5s infinite;}
+@keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-12px);}}
+
+/* BUTTON */
+button{
+padding:15px 30px;
+font-size:20px;
+border:none;
+border-radius:20px;
+cursor:pointer;
+font-family:'Courier New';
+margin:10px;
+transition:0.3s;
+}
+#startMusic{background:white;color:#ff69b4;}
+#continueBtn{background:white;color:#ff69b4;}
+#yes{background:white;color:#ff69b4;}
+#yes:hover{transform:scale(1.1);}
+#no{background:#ff69b4;color:white;position:absolute;}
+
+/* QUESTION TEXT */
+.question{
+font-size:28px;
+margin-bottom:30px;
+text-shadow:2px 2px #ff69b4;
+}
+
+/* PHOTO */
+.photo img{
+width:250px;
+border-radius:20px;
+box-shadow:0 0 20px white;
+transition:0.7s;
+opacity:0;
+transform:translateY(40px);
+}
+.photo img.show{
+opacity:1;
+transform:translateY(0);
+}
+
+/* FINAL BUTTON */
+#finalBtn{background:white;color:#ff69b4;font-size:22px;}
+
+/* ENDING */
+#ending{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#ff69b4; /* pink background */
+color:white;
+display:none;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+overflow:hidden;
+}
+.loveText{
+font-size:28px;
+animation:glow 2s infinite alternate;
+text-align:center;
+line-height:1.6;
+z-index:2;
+}
+@keyframes glow{from{text-shadow:0 0 10px white;}to{text-shadow:0 0 40px white;}}
+.heart{position:absolute;color:white;animation:fall linear infinite;}
+@keyframes fall{from{transform:translateY(-10vh);}to{transform:translateY(110vh);}}
+</style>
+</head>
+<body>
+
+<!-- Sparkle -->
+<script>
+for(let i=0;i<40;i++){
+let s=document.createElement("div");
+s.className="sparkle";
+s.style.top=Math.random()*100+"vh";
+s.style.left=Math.random()*100+"vw";
+s.style.animationDuration=(1+Math.random()*3)+"s";
+document.body.appendChild(s);
+}
+</script>
+
+<!-- AUDIO -->
+<audio id="bgMusic" loop>
+<source src="Mitski_-_My_Love_Mine_All_Mine_(mp3.pm).mp3" type="audio/mpeg">
+</audio>
+
+<!-- START BUTTON -->
+<div id="startPage" class="section">
+<h1>valentine yeeppy</h1>
+<div class="pixel-cat">(=^･ω･^=)</div>
+<button id="startMusic">musik duluu 🎵</button>
+</div>
+
+<!-- INTRO -->
+<div id="intro" class="section" style="display:none;">
+<h2>maaf yaa cuma gini doang</h2>
+<div class="subtitle" id="introText"></div>
+<div class="pixel-cat">(=^･ω･^=)</div>
+<button id="continueBtn" style="display:none;">Lanjut</button>
+</div>
+
+<!-- YES / NO PAGE -->
+<div id="mainPage" class="section" style="display:none;">
+<div class="question">Will you be my valentine ??</div>
+<div class="pixel-cat">(=^･ω･^=)</div>
+<img src="meme_kucing.png" style="width:150px;margin:10px;border-radius:10px;"> <!-- meme kucing gemoy -->
+<button id="yes">YES</button>
+<button id="no">NO</button>
+</div>
+
+<!-- GALLERY -->
+<div id="gallery" style="display:none;">
+<div class="section photo">
+<h2>ADEEE 🤍🤍🤍</h2>
+<img src="foto1.jpg">
+</div>
+<div class="section photo">
+<h2>Gemoy banget sih kamu</h2>
+<img src="foto2.jpg">
+</div>
+<div class="section photo">
+<h2>Random tapi aku sukaa 🤍</h2>
+<img src="foto3.jpg">
+</div>
+<div class="section photo">
+<h2>Dan ini baru permulaan cerita kita ✨</h2>
+<img src="foto4.jpg">
+</div>
+<div class="section">
+<button id="finalBtn">klik akuu pleasee</button>
+</div>
+</div>
+
+<!-- ENDING -->
+<div id="ending">
+<div class="loveText">
+i love you more than yesterday <br>
+and less than tomorrow <br><br>
+MUUWAAA 🤍🤍🤍
+</div>
+</div>
+
+<script>
+// Sparkle otomatis sudah dibuat
+
+let music=document.getElementById("bgMusic");
+
+/* START BUTTON -> mulai musik + intro */
+let startBtn=document.getElementById("startMusic");
+startBtn.onclick=function(){
+music.play();
+document.getElementById("startPage").style.display="none";
+document.getElementById("intro").style.display="flex";
+
+// typing effect
+let introText = document.getElementById("introText");
+let text = `Tapi aku pengen kamu tau, setiap detik aku mikirin kamu.
+Kadang aku takut aku nggak cukup buat kamu, takut kamu nggak ngerasa sama yang aku rasain.
+Setiap senyum kamu, setiap tawa kamu, itu bikin aku pengen selalu ada buat kamu,
+Dan setiap kali aku inget kamu sedih, rasanya aku pengen bisa ambil semua rasa sakit itu buat kamu.
+Aku nggak bisa janji segalanya, tapi aku janji hati aku bakal selalu buat kamu bahagia.
+Aku pengen nemenin kamu dari tawa sampai air mata, karena tanpa kamu, dunia aku rasanya hampa banget ✨💖`;
+
+function typeText(element, text, speed=50, callback){
+  let i=0;
+  element.innerHTML="";
+  function typing(){
+    if(i<text.length){
+      element.innerHTML += text.charAt(i);
+      i++;
+      setTimeout(typing,speed);
+    } else if(callback){ callback(); }
+  }
+  typing();
+}
+
+typeText(introText, text, 40, ()=>{
+  document.getElementById("continueBtn").style.display="inline-block";
+});
+};
+
+/* INTRO -> Lanjut */
+let continueBtn=document.getElementById("continueBtn");
+continueBtn.onclick=function(){
+document.getElementById("intro").style.display="none";
+document.getElementById("mainPage").style.display="flex";
+};
+
+/* NO kabur */
+let noBtn=document.getElementById("no");
+function moveNo(){
+let maxX=window.innerWidth-100;
+let maxY=window.innerHeight-50;
+let x=Math.random()*maxX;
+let y=Math.random()*maxY;
+noBtn.style.left=x+"px";
+noBtn.style.top=y+"px";
+}
+noBtn.addEventListener("mouseover",moveNo);
+noBtn.addEventListener("click",moveNo);
+
+/* YES -> gallery */
+document.getElementById("yes").onclick=function(){
+document.getElementById("mainPage").style.display="none";
+document.getElementById("gallery").style.display="block";
+
+let imgs=document.querySelectorAll(".photo img");
+imgs.forEach((img,i)=>{
+setTimeout(()=>{img.classList.add("show");}, 800*i);
+});
+};
+
+/* FINAL ending */
+document.getElementById("finalBtn").onclick=function(){
+document.getElementById("ending").style.display="flex";
+for(let i=0;i<30;i++){
+let heart=document.createElement("div");
+heart.className="heart";
+heart.innerHTML="🤍";
+heart.style.left=Math.random()*100+"vw";
+heart.style.animationDuration=(3+Math.random()*5)+"s";
+heart.style.fontSize=(20+Math.random()*30)+"px";
+document.getElementById("ending").appendChild(heart);
+}
+};
+</script>
+
+</body>
+</html>
